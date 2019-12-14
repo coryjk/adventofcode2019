@@ -10,15 +10,20 @@ public class ProgramAlarm {
     static int MULT = 2;
     static int HALT = 99;
 
+    // target output for part 02
+    static int OUTPUT = 19690720;
+
     /**
      * Opcodes: 
      * - 99: Halt 
      * - 01: Add values M[i+1], M[i+2] 
      * - 02: Multiply values M[i+1], M[i+2]
      */
-    public static int[] runIntcode(int[] intcode) {
+    public static int[] runIntcode(int[] intcode, int in1, int in2) {
         // create copy
         int[] res = Arrays.copyOf(intcode, intcode.length);
+        // set inputs
+        res[1] = in1; res[2] = in2;
         // execute
         for (int i = 0; i < res.length; i+=4) {
             int opcode = res[i];
@@ -38,6 +43,20 @@ public class ProgramAlarm {
         return res;
     }
 
+    public static int nounAndVerb(int[] intcode) {
+        // try all possible inputs...
+        for (int noun = 0; noun < 100; noun++) {
+            for (int verb = 0; verb < 100; verb++) {
+                // found
+                if (runIntcode(intcode, noun, verb)[0] == OUTPUT) {
+                    return noun * 100 + verb;
+                }
+            }
+        }
+        // not found
+        return -1;
+    }
+
     /**
      * Wrapper method
      */
@@ -50,9 +69,10 @@ public class ProgramAlarm {
         for (int i = 0; i < input.length; i++) {
             input[i] = proc[i];
         }                             
-        int[] res = runIntcode(input);
+        int[] res = runIntcode(input, 12, 2);
         System.out.println("Day 02:" 
-                            + "\n\tPart 1: " + res[0]);
+                            + "\n\tPart 1: " + res[0]
+                            + "\n\tPart 2: " + nounAndVerb(input));
     }
 
 }
