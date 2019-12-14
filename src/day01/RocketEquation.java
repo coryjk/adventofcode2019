@@ -46,8 +46,4 @@ public class RocketEquation {
                            + "\n\tPart 2: " + sumRecursiveFuelRequirements(input));
 
     }
-
-    public static void main(String[] args) {
-        System.out.println(fuel(1969));
-    }
 }
