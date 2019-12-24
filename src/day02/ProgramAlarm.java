@@ -70,9 +70,7 @@ public class ProgramAlarm {
             input[i] = proc[i];
         }                             
         int[] res = runIntcode(input, 12, 2);
-        System.out.println("Day 02:" 
-                            + "\n\tPart 1: " + res[0]
-                            + "\n\tPart 2: " + nounAndVerb(input));
+        AdventTools.printSolutions(2, res[0], nounAndVerb(input));
     }
 
 }

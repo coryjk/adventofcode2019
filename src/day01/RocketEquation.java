@@ -41,9 +41,6 @@ public class RocketEquation {
      */
     public static void solve(String filename) {
         List<String> input = AdventTools.readInputByLine(filename);
-        System.out.println("Day 01:" 
-                           + "\n\tPart 1: " + sumFuelRequirements(input)
-                           + "\n\tPart 2: " + sumRecursiveFuelRequirements(input));
-
+        AdventTools.printSolutions(1, sumFuelRequirements(input), sumRecursiveFuelRequirements(input));
     }
 }
