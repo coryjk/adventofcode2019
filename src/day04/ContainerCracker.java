@@ -52,7 +52,39 @@ public class ContainerCracker {
         return count;
     }
 
+    // stand-alone for part 2
+    public static int countValidPasswordsPart2(int begin, int end) {
+        int count = 0;
+        int lastDigit = -1;
+        List<Integer> notDescendingDigits = new ArrayList<Integer>();
+        List<Integer> digitCount = new ArrayList<Integer>(Collections.nCopies(10,0));
+        // find non-descending numbers
+        outer: for (int n = begin; n <= end; n++) {
+            lastDigit = -1;
+            // ensure is not descending (save digits at same time)
+            for (int i = n; i > 0; i /= 10) {
+                if (lastDigit != -1 && i%10 > lastDigit) {
+                    continue outer;
+                }
+                lastDigit = i%10;
+            }
+            notDescendingDigits.add(n);
+        }
+        // count digits
+        for (Integer n : notDescendingDigits) {
+            for (int i = n; i > 0; i /= 10) {
+                digitCount.set(i%10, digitCount.get(i%10) + 1);
+            }
+            // check criteria
+            if (digitCount.contains(2)) {
+                count++;
+            }
+            digitCount = new ArrayList<Integer>(Collections.nCopies(10,0));
+        }
+        return count;
+    }
+
     public static void solve() {
-        AdventTools.printSolutions(4, countValidPasswords(BEGIN,END), -1);
+        AdventTools.printSolutions(4, countValidPasswords(BEGIN,END), countValidPasswordsPart2(BEGIN, END));
     }
 }
